@@ -24,3 +24,51 @@ def is_sentence(text):
         return False
 
     return True
+def get_sentence():
+    """Prompt user for a valid sentence and return it."""
+    while True:
+        sentence = input("Enter a sentence: ")
+
+        # validation: starts capital & ends with . ? !
+        if (len(sentence) > 0 and
+            sentence[0].isupper() and
+            sentence[-1] in ".?!"):
+            return sentence
+        else:
+            print("Invalid sentence. It must start with a capital letter and end with . ? or !\n")
+
+
+def calculate_frequencies(sentence):
+    """Return two lists: words and their frequencies."""
+    words = []
+    freqs = []
+
+    # remove ending punctuation and split
+    word_list = sentence[:-1].split()
+
+    for w in word_list:
+        if w in words:
+            idx = words.index(w)
+            freqs[idx] += 1
+        else:
+            words.append(w)
+            freqs.append(1)
+
+    return words, freqs
+
+
+def print_frequencies(words, freqs):
+    """Print the frequencies in readable format."""
+    print("\nWord Frequencies:")
+    for w, f in zip(words, freqs):
+        print(f"{w}: {f}")
+
+
+def main():
+    sentence = get_sentence()
+    words, freqs = calculate_frequencies(sentence)
+    print_frequencies(words, freqs)
+
+
+# -------- Run program --------
+main()
